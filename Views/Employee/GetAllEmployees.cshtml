@@ -1,0 +1,77 @@
+﻿@model IEnumerable<HumanResourceApp.Models.EmployeeModel>
+
+@{
+    ViewData["Title"] = "All Employees";
+}
+
+
+<p>
+    <h4>
+    <a class="btn btn-default" asp-action="AddEmployee">Create New</a>
+    </h4>
+</p>
+<h4>@ViewData["Title"]</h4>
+<p style="color:green">@TempData["DeleteMsg"]</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                S/no
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.first_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.last_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.middle_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.job_title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.level_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.age)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+
+            {
+        <tr>
+            <td>
+                @item.Index
+            </td>
+            <td>
+                @Html.DisplayFor(modeltem => item.Data.first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data.last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data.middle_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data.job_title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data.level_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data.age)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "UpdateEmployee", new { id = item.Data.id_no }, new { @class = "btn btn-default" })
+
+                @Html.ActionLink("Delete", "DeleteEmployee", new { id = item.Data.id_no },
+               new { onclick = "return confirm('Confirm Deletion of Employee Data?');", @class = "btn btn-default" })
+            </td>
+        </tr>            
+        }
+    </tbody>
+</table>
